@@ -15,6 +15,9 @@ import re
 #define the number of the VMs you want to produce
 VMS_NUMBER = 100
 
+#define the number of scheduling periods
+NUMBER_OF_PERIODS = 290
+
 def natural_sort(l): 
     convert = lambda text: int(text) if text.isdigit() else text.lower() 
     alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ] 
@@ -39,9 +42,8 @@ else:
 
 time_series = {}
 
-#define the number of scheduling periods
-#by default the number of the scheduling periods is 290
-for i in range(6,870,3):
+NUMBER_OF_PERIODS *= 3
+for i in range(6,NUMBER_OF_PERIODS,3):
     time_series[i] = 10e-9
 
 #extract information for vms from files in output folder
@@ -82,7 +84,7 @@ for idx, ufile in enumerate(natural_sort(glob.glob(input_folder+"/*_usage"))):
     
     usage_output_file =open(output_folder+os.sep+str(vm_name),"w")
     usage_output_file.write(str(load_lines[2])+" "+str(load_lines[3])+" "+str(load_lines[1])+"\n")
-    for x in temp_time_series:
+    for x in range(6,NUMBER_OF_PERIODS,3):
         usage_output_file.write("{:20.10f}".format(temp_time_series[x]).strip()+"\n")
     usage_output_file.close()
 
