@@ -1,5 +1,10 @@
-#authors:   Kalogirou Christos, Koutsovasilis Panos
-#=========================================================
+# Copyright (c) 2019 Christos Kalogirou and Panos Koutsovasilis, University of Thessaly, Greece
+# Contact: hrkalogi@uth.gr, pkoutsovasilis@uth.gr
+#
+# This software is licensed for research and non-commercial use only.
+# 
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
 
 import os
 import glob
@@ -12,7 +17,7 @@ def natural_sort(l):
     alphanum_key = lambda key: [ convert(c) for c in re.split('([0-9]+)', key) ] 
     return sorted(l, key = alphanum_key)
 
-#define the path for the input and outpur folders
+#define the path for the input and output folders
 usage_folder="/home/chris/traces/task_usage/"
 events_folder="/home/chris/traces/task_events/"
 output_folder ="/home/chris/traces/output"
@@ -31,7 +36,7 @@ else:
             print(e)
 
 print "Load extraction"
-#assign maximum utilization from load to vms
+#extract the resource usage for vms per period from task_usage
 for ufile in natural_sort(glob.glob(events_folder+"/part-*-of-00500.csv")):
     print ufile
     lines = [x.replace("\n","").split(",") for x in open(ufile,"r")]
@@ -56,7 +61,7 @@ for ufile in natural_sort(glob.glob(events_folder+"/part-*-of-00500.csv")):
             exit(0)
 
 print "Usage extraction"
-#extract vms from usage parts
+#extract the resource usage for vms per period from task_usage
 for ufile in natural_sort(glob.glob(usage_folder+"/part-*-of-00500.csv")):
     print ufile
     lines = [x.replace("\n","").split(",") for x in open(ufile,"r")]
